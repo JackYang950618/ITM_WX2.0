@@ -1,0 +1,154 @@
+<scroll-view scroll-y="{{modalName==null}}" class="page {{modalName!=null?'show':''}}">
+  <cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+    <view slot="backText">返回</view>
+    <view slot="content">个人中心</view>
+  </cu-custom>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="cu-bar bg-white solid-bottom margin-top">
+      <view class="action">
+        <text class="cuIcon-title text-orange "></text> 个人中心
+      </view>
+      <view class="action">
+        <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">设置</button>
+      </view>
+    </view>
+    <view class="cu-modal {{modalName=='menuModal'?'show':''}}" bindtap="hideModal">
+      <view class="cu-dialog" catchtap>
+        <scroll-view scroll-y style="height:300rpx">
+          <view class="cu-list menu text-left solid-top">
+            <view class="cu-item">
+              <view class="content">
+                <text class="text-grey">短边框</text>
+              </view>
+              <view class="action">
+                <switch bindchange="menuBorder"></switch>
+              </view>
+            </view>
+            <view class="cu-item">
+              <view class="content">
+                <text class="text-grey">箭头</text>
+              </view>
+              <view class="action">
+                <switch bindchange="menuArrow"></switch>
+              </view>
+            </view>
+            <view class="cu-item">
+              <view class="content">
+                <text class="text-grey">卡片</text>
+              </view>
+              <view class="action">
+                <switch bindchange="menuCard"></switch>
+              </view>
+            </view>
+            <view class="cu-item">
+              <view class="content">
+                <text class="text-grey">短边框</text>
+              </view>
+              <view class="action">
+                <switch bindchange="menuBorder"></switch>
+              </view>
+            </view>
+            <view class="cu-item">
+              <view class="content">
+                <text class="text-grey">箭头</text>
+              </view>
+              <view class="action">
+                <switch bindchange="menuArrow"></switch>
+              </view>
+            </view>
+            <view class="cu-item">
+              <view class="content">
+                <text class="text-grey">卡片</text>
+              </view>
+              <view class="action">
+                <switch bindchange="menuCard"></switch>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+    <view class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}" style="margin-bottom:84rpx">
+      <view class="cu-item {{menuArrow?'arrow':''}}" style="background-color:#cccccc">
+        <view class="cu-form-group" style="background-color:#cccccc">
+          <text class="text-black title">用户名</text>
+          <input disabled="true" name="nickName" value="{{nickName}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="cu-form-group">
+          <text class="text-grey title">姓名</text>
+          <input name="name" value="{{name}}"></input>
+        </view>
+      </view>
+      <view class="cu-item">
+        <view class="cu-form-group">
+          <text class="text-grey title">性别</text>
+        </view>
+        <view class="action">
+          <switch name="sex" checked="{{sex}}" class="switch-sex" bindchange="switchSex"></switch>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}" style="background-color:#cccccc">
+        <view class="cu-form-group" style="background-color:#cccccc">
+          <text class="text-black title">岗位</text>
+          <input disabled="true" value="{{job}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="cu-form-group">
+          <text class="text-grey title">电话</text>
+          <input name="phoneNumber" value="{{phoneNumber}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="cu-form-group">
+          <text class="text-grey title">邮箱</text>
+          <input name="email" type="email" value="{{email}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}">
+        <view class="cu-form-group">
+          <text class="text-grey title">年龄</text>
+          <input name="age" value="{{age}}"></input>
+        </view>
+      </view>
+      <view class="cu-item">
+        <view class="cu-form-group">
+          <text class="text-grey title">密码</text>
+          <input name="password" value="{{passwordView}}" password="{{password}}"></input>
+        </view>
+        <view class="action">
+          <switch class="switch-password" checked="true" bindchange="switchPassword"></switch>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}" style="background-color:#cccccc">
+        <view class="cu-form-group" style="background-color:#cccccc">
+          <text class="text-black title">公司</text>
+          <input disabled="true" value="{{company}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}" style="background-color:#cccccc">
+        <view class="cu-form-group" style="background-color:#cccccc">
+          <text class="text-black title">部门</text>
+          <input disabled="true" value="{{department}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}" style="background-color:#cccccc">
+        <view class="cu-form-group" style="background-color:#cccccc">
+          <text class="text-black title">二级部门</text>
+          <input disabled="true" value="{{secondaryDepartment}}"></input>
+        </view>
+      </view>
+      <view class="cu-item {{menuArrow?'arrow':''}}" style="background-color:#cccccc">
+        <view class="cu-form-group" style="background-color:#cccccc">
+          <text class="text-black title">角色</text>
+          <input disabled="true" value="{{role}}"></input>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar justify-around btnView">
+      <button class="invoice bg-green" form-type="submit">保存</button>
+    </view>
+  </form>
+</scroll-view>

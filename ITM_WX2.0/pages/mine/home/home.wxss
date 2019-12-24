@@ -1,0 +1,43 @@
+.page {
+  height: 100Vh;
+  width: 100vw;
+}
+
+.page.show {
+  overflow: hidden;
+}
+
+.switch-music::after {
+  content: "\e66a";
+}
+
+.switch-music::before {
+  content: "\e6db";
+}
+
+.switch-password::after {
+  content: "\e6c0";
+}
+
+.switch-password::before {
+  content: "\e6c2";
+}
+
+.btnView {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9998;
+}
+
+.invoice {
+  width: 100%
+}
+
+.cu-bar {
+  min-height: 84rpx
+}
+
+.unchangeable {
+  color: #e9adad
+}

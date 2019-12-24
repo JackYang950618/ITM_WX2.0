@@ -1,0 +1,106 @@
+/* pages/viewDetails/viewDetails.wxss */
+.cu-form-group .title {
+  min-width: calc(4em + 30rpx);
+}
+
+.h1 {
+  font-size: 40rpx;
+  font-weight: 700
+}
+
+.invoice {
+  width: 100%
+}
+
+.cu-bar {
+  min-height: 84rpx
+}
+
+.iconLocation {
+  position: absolute;
+  left: 90%;
+  bottom: 25%;
+}
+
+.btnView {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9998;
+}
+
+.container1 {
+  align-items: center;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+/*分割线样式*/
+.divLine{
+ background: #eee;
+ width: 100%;
+ height: 2rpx;
+}
+ 
+.isRuleHide {
+  display: none;
+}
+ 
+.float {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  top: 100rpx;
+  left: 0;
+}
+
+.confirm {
+  font-size: 18px;
+  line-height: 26px;
+  margin: 20rpx;
+  height: 52rpx;
+  width: 240rpx;
+}
+ 
+.floatContent {
+  padding: 20rpx 0;
+  width: 80%;
+  height: 300rpx;
+  background: #fff;
+  margin: 40% auto;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+.modal{
+  display: flex;
+  justify-content: space-between;
+}
+
+.ruleHide {
+  height: 40rpx !important;
+  width: 40rpx !important;
+  position: absolute;
+  top: 5rpx;
+  right: 5rpx;
+  color: black;
+}
+
+.action {
+  display: flex;
+  justify-content: space-around;
+}

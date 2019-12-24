@@ -1,0 +1,27 @@
+<image src='/images/BasicsBg.png' mode='widthFix' class='png' style='width:100%;height:486rpx'></image>
+<scroll-view scroll-y="{{modalName==null}}" class="page {{modalName!=null?'show':''}} intro">
+  <view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-orange "></text> 待接收
+    </view>
+  </view>
+  <view class="divLine3"></view>
+  <view class="cu-list menu-avatar">
+    <view class="cu-item {{modalName==index?'move-cur':''}}" wx:for="{{billList}}" wx:key="*this" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="{{index}}">
+      <view class="cu-avatar round lg" data-target="{{index}}" bindtap="viewDtl" style="background-image:url({{avatarUrl}});"></view>
+      <view class="content"> 
+        <audio poster="{{item.poster}}" name="{{item.name}}" author="{{item.author}}"  id="myAudio"  bindtap="startPlay"  data-src="{{item.src}}"  data-index="{{index}}" controls ></audio>
+    
+      </view>
+      <view class="move">
+        <view class="bg-green" style="display:{{item.start}}" catchtap="reminder" data-target="{{index}}">催单</view>
+        <view class="bg-red" style="display:{{item.start}}" catchtap="del" data-target="{{index}}">删除</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <!-- <view class='cuIcon-emojifill text-orange'></view> -->
+  <image src='/images/logo.png' class='png' mode='aspectFit'></image>
+  <view class='gray-text'>加载中...</view>
+</view>

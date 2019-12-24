@@ -1,0 +1,67 @@
+<scroll-view scroll-y="{{modalName==null}}" class="page {{modalName!=null?'show':''}} intro">
+<cu-custom bgColor="bg-gradual-green" isBack="{{true}}">
+  <view slot="backText">返回</view> 
+  <view slot="content">查看详情</view>
+</cu-custom>
+<form bindsubmit="formSubmit" bindreset="formReset">
+	<view class="cu-form-group margin-top">
+		<view class="title">标题</view>
+		<input name="workTitle" value="{{workTitle}}" bindinput="workInput"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">语音输入</view>
+		<button class="cu-btn bg-green shadow" capture-catch:touchstart="start" capture-catch:touchend="stop">按住录音</button> 
+	</view>
+	<view class="cu-form-group">
+		<view class="title">语音描述</view>
+		<button class="cu-btn bg-green shadow" catchtap="playL">播放录音</button> 
+	</view>
+	<view class="cu-form-group align-start">
+		<view class="title">已转文字</view>
+		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaAInput" placeholder="这里是已转文字" value="{{textareaAValue}}" name="workContent"></textarea>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">期望时间</view>
+		<picker mode="multiSelector" name="expectedTime" value="{{multiIndex}}" range="{{multiArray}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange">
+			<view class="picker">
+				{{time}}
+			</view>
+		</picker>
+	</view>
+  <input style="display:none" name="userIn" value="{{userIn}}"></input>
+	<view class="cu-form-group">
+		<view class="title">故障类型</view> 
+		<picker bindchange="PickerChange" name="faultType" range-key="name" value="{{index}}" range="{{picker}}">
+			<view class="picker">
+				{{index ? picker[index].name : pickerInfo}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-bar bg-white margin-top">
+		<view class="action">
+			图片上传
+		</view>
+		<view class="action">
+			{{imgList.length}}/8
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<8}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+	<!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" -->
+	<view class="cu-form-group justify-around">
+		<button class="bg-green invoice" form-type="submit">确认发单</button>
+		<button class="bg-green invoice" form-type="reset">内容重置</button>
+	</view>
+</form>
+</scroll-view>

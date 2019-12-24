@@ -1,0 +1,314 @@
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">查看详情</view>
+</cu-custom>
+<view class="cu-form-group margin-top">
+  <view class="h1">工单流程</view>
+</view>
+<view class="cu-timeline" wx:for="{{nodeList}}">
+  <view class="cu-item text-{{item.node}}">
+    <view class="bg-{{item.bg}} content shadow">
+      <view class="cu-capsule radius">
+        <view class="cu-tag bg-white text-grey">{{item.time}}</view>
+      </view>
+      <view class="margin-top-sm text-content">{{item.creator}}</view>
+        <text style="font-size:40rpx" class="cuIcon-phone lg text-white iconLocation" bindtap="showModal" data-target="DialogModal2"></text>
+    </view>   
+  </view>
+</view>
+<!-- <view class="cu-bar justify-around">
+  <button class="bg-green invoice" bindtap="showModal" 
+  data-target="DialogModal2">联系接单人</button>
+</view> -->
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view style="display:{{infoMode}}">
+    <view class="cu-form-group margin-top">
+      <view class="h1">工单信息</view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">工单标题</view>
+      <input name="workTitle" disabled="{{disAble}}" value="{{workTitle}}" bindinput="workInput"></input>
+    </view>
+    <view class="cu-form-group" style="display:{{save}}">
+      <view class="title">语音输入</view>
+      <button class="cu-btn bg-green shadow" capture-catch:touchstart="start" capture-catch:touchend="stop">按住录音</button> 
+    </view>
+    <view class="cu-form-group">
+      <view class="title">语音描述</view>
+      <button class="cu-btn bg-green shadow" catchtap="playL">播放录音</button> 
+    </view>
+    <!-- <view class="cu-form-group">
+      <view class="title">工单语音</view>
+      <audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls></audio>
+    </view> -->
+    <view class="cu-form-group align-start">
+      <view class="title">说明内容</view>
+      <textarea disabled="{{disAble}}" name="workContent" value="{{workContent}}" bindinput="textareaAInput"></textarea>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">期望时间</view>
+      <picker disabled="{{disAble}}" mode="multiSelector" name="expectedTime" value="{{multiIndex}}" 
+      range="{{multiArray}}" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange">
+        <view class="picker">
+          {{time}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">故障类型</view> 
+      <picker disabled="{{disAble}}" bindchange="PickerChange" name="faultType" range-key="name" value="{{index}}" range="{{picker}}">
+        <view class="picker">
+          {{index ? picker[index].name : pickerInfo}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="divLine"></view>
+  <view class="cu-bar bg-white">
+		<view class="action">
+			图片上传
+		</view>
+		<view class="action">
+			{{imgList.length}}/8
+		</view>
+	</view>
+	<view class="cu-form-group" style="margin-bottom:88rpx">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<8}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+
+  <view style="display:{{returnMode}};margin-bottom:100rpx">
+    <view class="cu-form-group margin-top">
+      <view class="h1">工单退回处理说明</view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">执行人员</view>
+      <input disabled="{{disAble2}}" name="return_person" value="{{returnPerson}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">工单类型</view> 
+      <picker disabled="{{disAble}}" bindchange="PickerChange2" name="return_faultType" range-key="name" value="{{index2}}" range="{{picker2}}">
+        <view class="picker">
+          {{index2 ? picker2[index2].name : pickerInfo}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">退回处理时间</view>
+      <picker disabled="{{disAble2}}" mode="multiSelector" name="backTime" value="{{multiIndex}}" 
+      range="{{multiArray}}" bindchange="bindMultiPickerChange2" bindcolumnchange="bindMultiPickerColumnChange">
+        <view class="picker">
+          {{time2}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group" style="display:{{returnBtn}}">
+      <view class="title">语音输入</view>
+      <button class="cu-btn bg-green shadow" data-type="4" capture-catch:touchstart="start" capture-catch:touchend="stop">按住录音</button> 
+    </view>
+    <view class="cu-form-group">
+      <view class="title">退回说明</view>
+      <button class="cu-btn bg-green shadow" catchtap="playL2">播放录音</button> 
+    </view>
+    <view class="cu-form-group align-start">
+      <view class="title">已转文字</view>
+      <textarea maxlength="-1" bindinput="textareaBInput" value="{{backContent}}" name="backContent" placeholder="这里是已转文字，轻触可编辑"></textarea>
+    </view>
+    <view class="divLine"></view>
+    <view class="cu-bar bg-white">
+      <view class="action">
+        上传退回处理图片附件
+      </view>
+      <view class="action">
+        {{imgList2.length}}/8
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{imgList2}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList2[index]}}">
+          <image src='{{imgList2[index]}}' mode='aspectFill'></image>
+          <view class="cu-tag bg-red" disabled="{{disAble2}}" catchtap="DelImg" data-index="{{index}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+        <view class="solids" data-type="3" disabled="{{disAble2}}" bindtap="ChooseImage" wx:if="{{imgList2.length<8}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style="display:{{reorderMode}};margin-bottom:100rpx">
+    <view class="cu-form-group margin-top">
+      <view class="h1">工单退回说明</view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">退回人员</view>
+      <input disabled="{{disAble}}" name="succeedPerson" value="{{succeedPerson}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">退回说明</view>
+      <button class="cu-btn bg-green shadow" catchtap="playL">播放录音</button> 
+    </view>
+    <view class="cu-form-group align-start">
+      <view class="title">已转文字</view>
+      <textarea disabled="{{disAble}}" maxlength="-1" bindinput="textareaBInput" placeholder="这里是已转文字，轻触可编辑"></textarea>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">退回时间</view>
+      <picker disabled="{{disAble}}" mode="multiSelector" name="succeedTime" value="{{multiIndex}}" 
+      range="{{multiArray}}" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange">
+        <view class="picker">
+          {{time1}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group" style="display:{{workLabel_display}}">
+      <view class="title">工单标签</view>
+      <input disabled="{{disAble}}" name="workLabel" value="{{workLabel}}" bindinput="{{workLabel}}"></input>
+    </view>
+    <view class="divLine"></view>
+    <view class="cu-bar bg-white">
+      <view class="action">
+        退回图片附件
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+          <image src='{{imgList[index]}}' mode='aspectFill'></image>
+          <view class="cu-tag bg-red" disabled="{{disAble}}" catchtap="DelImg" data-index="{{index}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style="display:{{succeedMode}};margin-bottom:100rpx">
+    <view class="cu-form-group margin-top">
+      <view class="h1">工单完成说明</view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">完成人员</view>
+      <input disabled="{{disAble}}" name="succeedPerson" value="{{succeedPerson}}"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">完成说明</view>
+      <audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls></audio>
+    </view>
+    <view class="cu-form-group align-start">
+      <view class="title">已转文字</view>
+      <textarea disabled="{{disAble}}" maxlength="-1" bindinput="textareaBInput" placeholder="这里是已转文字，轻触可编辑"></textarea>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">完成时间</view>
+      <picker disabled="{{disAble}}" mode="multiSelector" name="succeedTime" value="{{multiIndex}}" 
+      range="{{multiArray}}" bindchange="bindMultiPickerChange1" bindcolumnchange="bindMultiPickerColumnChange">
+        <view class="picker">
+          {{time1}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group" style="display:{{workLabel_display}}">
+      <view class="title">工单标签</view>
+      <input disabled="{{disAble}}" name="workLabel" value="{{workLabel}}" bindinput="{{workLabel}}"></input>
+    </view>
+    <view class="divLine"></view>
+    <view class="cu-bar bg-white">
+      <view class="action">
+        图片上传
+      </view>
+      <view class="action">
+        {{imgList.length}}/8
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+          <image src='{{imgList[index]}}' mode='aspectFill'></image>
+          <view class="cu-tag bg-red" disabled="{{disAble}}" catchtap="DelImg" data-index="{{index}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+        <view class="solids" disabled="{{disAble}}" bindtap="ChooseImage" wx:if="{{imgList.length<8}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+    </view>
+  </view>
+	<!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
+	<view class="cu-bar justify-around btnView">
+		<button class="invoice bg-green" data-type="1" style="display:{{save}}" form-type="submit">保存</button>
+		<button class="invoice bg-green" data-type="2" style="display:{{returnBtn}}" form-type="submit">退回处理</button>
+		<button class="invoice bg-green" style="display:{{reorderBtn}}">重新发单</button>
+		<button class="invoice bg-green" style="display:{{returnBtn}}" catchtap="closeWork">确认关闭</button>
+	</view>
+<input style="display:none" name="userIn" value="{{userIn}}"></input>
+</form>
+<view class="cu-modal {{modalName=='DialogModal1'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">接单人信息</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="container1">
+      每天仅能催单一次，确认是否催单？
+      </view>
+      <view class="cu-bar justify-around">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="hideModal">确定</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="cu-modal {{modalName=='DialogModal2'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">接单人信息</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="container">
+        <text class="title">姓名</text>
+        <text class="content">{{container_name}}</text>
+      </view>
+      <view class="divLine"></view>
+      <view class="container">
+        <text class="title">部门</text>
+        <text class="content">{{container_department}}</text>
+      </view>
+      <view class="divLine"></view>
+      <view class="container">
+        <text class="title">邮箱</text>
+        <text class="content">{{container_email}}</text>
+      </view>
+      <view class="divLine"></view>
+      <view class="container">
+        <text class="title">电话</text>
+        <text class="content">{{container_phone}}</text>
+      </view>
+      <view class="divLine"></view>
+      <view class="cu-bar justify-around">
+        <view class="action">
+          <button class="cu-btn line-green text-green" bindtap="hideModal">取消</button>
+          <button class="cu-btn bg-green margin-left" bindtap="call">拨打</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

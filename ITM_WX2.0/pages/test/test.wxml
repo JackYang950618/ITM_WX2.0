@@ -1,0 +1,8 @@
+<!--pages/test/test.wxml-->
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">查看详情</view>
+</cu-custom>
+<text>pages/test/test.wxml</text>
+<button class="cu-btn bg-green shadow" capture-catch:touchstart="touchStart" capture-catch:touchend="touchEnd">按住录音</button> 
+<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="conInput" placeholder="这里是已转文字" value="{{content}}" name="workContent"></textarea>

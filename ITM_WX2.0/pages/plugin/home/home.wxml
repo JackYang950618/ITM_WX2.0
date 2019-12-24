@@ -1,0 +1,20 @@
+<scroll-view scroll-y="{{modalName==null}}" class="page {{modalName!=null?'show':''}} intro">
+  <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">查看详情</view>
+</cu-custom>
+  <view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-orange "></text> 已完成
+    </view>
+  </view>
+  <view class="divLine3"></view>
+  <view class="cu-list menu-avatar">
+    <view class="cu-item {{modalName==index?'move-cur':''}}" wx:for="{{billList}}" wx:key="*this" data-target="{{index}}">
+      <view class="cu-avatar round lg" bindtap="viewDtl" data-target="{{index}}" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big2100{{index+1}}.jpg);"></view>
+      <view class="content">
+        <audio poster="{{item.poster}}" name="{{item.name}}" author="{{item.author}}" bindtap="startPlay"  data-src="{{item.src}}"  data-index="{{index}}" controls></audio>
+      </view>
+    </view>
+  </view>
+</scroll-view>
